@@ -3,7 +3,7 @@ def welcome
 end
 
 def deal_card
-  return (rand (1..11))
+  return rand (1..11)
 end
 
 def display_card_total (card_total)
@@ -22,20 +22,28 @@ def end_game (card_total)
  puts "Sorry, you hit #{card_total}. Thanks for playing!"
 end
 
-def initial_round (card_total)
-  deal_card (card_total)
-  deal_card (card_total)
-  puts display_card_total (card_total)
-  return card_total
-end
+def initial_round 
+  sum = deal_card + deal_card
+  display_card_total(sum)
+  return sum
 end
 
-def hit?
-  # code hit? here
+def hit? (card_total)
+ prompt_user
+ input = get_user_input
+ if input == "h"
+   card_total+=deal_card
+ elsif input = "s"
+   card_total
+ elsif input != "s" && input != "h"
+ invalid_command 
+    prompt_user
+    input 
+ end
 end
 
 def invalid_command
-  # code invalid_command here
+  return "Please enter a valid command"
 end
 
 #####################################################
@@ -43,6 +51,11 @@ end
 #####################################################
 
 def runner
-  # code runner here
+  welcome
+  card_total = initial_round
+  until card_total> 21
+  hit? (card_total)
+  display_card_total(card_total)
 end
-    
+end_game (card_total)
+end
